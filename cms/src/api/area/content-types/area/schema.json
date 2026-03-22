@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "areas",
+  "info": {
+    "singularName": "area",
+    "pluralName": "areas",
+    "displayName": "area"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "prefecture": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "area_summary": {
+      "type": "richtext"
+    },
+    "landmarks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point-item"
+    }
+  }
+}

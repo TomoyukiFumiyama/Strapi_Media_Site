@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_blocks_cta_banner",
+  "info": {
+    "displayName": "cta-banner"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.cta"
+    }
+  }
+}

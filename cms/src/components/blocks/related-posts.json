@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_blocks_related_posts",
+  "info": {
+    "displayName": "related-posts"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    }
+  }
+}

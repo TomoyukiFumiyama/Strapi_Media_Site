@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_kpi_stat",
+  "info": {
+    "displayName": "KPI Stat"
+  },
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "suffix": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    }
+  }
+}

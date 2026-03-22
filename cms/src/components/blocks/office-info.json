@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_blocks_office_info",
+  "info": {
+    "displayName": "office-info"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "office": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::office.office"
+    }
+  }
+}

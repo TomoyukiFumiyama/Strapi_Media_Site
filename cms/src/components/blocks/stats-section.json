@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_blocks_stats_section",
+  "info": {
+    "displayName": "stats-section"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.kpi-stat"
+    }
+  }
+}
