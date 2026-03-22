@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: ./web
+    ports:
+      - "3000:3000"
+    environment:
+      STRAPI_USE_MOCK: "true"
+      NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+      REVALIDATE_SECRET: "dev-secret"
+    volumes:
+      - ./web:/app
+      - /app/node_modules
