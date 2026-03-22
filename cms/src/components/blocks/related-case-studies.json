@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_blocks_related_case_studies",
+  "info": {
+    "displayName": "related-case-studies"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_blocks_download_cta",
+  "info": {
+    "displayName": "download-cta"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    },
+    "lead_magnet": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::lead-magnet.lead-magnet"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_hero",
+  "info": {
+    "displayName": "Hero"
+  },
+  "attributes": {
+    "eyebrow": {
+      "type": "string"
+    },
+    "heading": {
+      "type": "string"
+    },
+    "lead": {
+      "type": "text"
+    },
+    "background_image": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false
+    },
+    "primary_cta": {
+      "type": "component",
+      "component": "shared.cta"
+    },
+    "secondary_cta": {
+      "type": "component",
+      "component": "shared.cta"
+    }
+  }
+}

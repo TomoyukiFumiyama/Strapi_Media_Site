@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_testimonial",
+  "info": {
+    "displayName": "Testimonial"
+  },
+  "attributes": {
+    "quote": {
+      "type": "richtext"
+    },
+    "speaker_name": {
+      "type": "string"
+    },
+    "speaker_meta": {
+      "type": "string"
+    }
+  }
+}

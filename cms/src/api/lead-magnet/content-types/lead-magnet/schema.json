@@ -1,0 +1,113 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lead_magnets",
+  "info": {
+    "singularName": "lead-magnet",
+    "pluralName": "lead-magnets",
+    "displayName": "lead-magnet"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "resource_type": {
+      "type": "enumeration",
+      "enum": [
+        "whitepaper",
+        "checklist",
+        "template",
+        "casebook"
+      ]
+    },
+    "summary": {
+      "type": "text"
+    },
+    "cover_image": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false
+    },
+    "download_file": {
+      "type": "media",
+      "multiple": false
+    },
+    "external_file_url": {
+      "type": "string"
+    },
+    "gate_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "form_provider": {
+      "type": "enumeration",
+      "enum": [
+        "internal",
+        "hubspot",
+        "none"
+      ],
+      "default": "internal"
+    },
+    "form_id": {
+      "type": "string"
+    },
+    "thank_you_heading": {
+      "type": "string"
+    },
+    "thank_you_body": {
+      "type": "richtext"
+    },
+    "thank_you_cta": {
+      "type": "component",
+      "component": "shared.cta"
+    },
+    "related_services": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service.service"
+    },
+    "related_posts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::blog-post.blog-post"
+    },
+    "related_case_studies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::case-study.case-study"
+    },
+    "landing_blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "blocks.rich-text",
+        "blocks.image-text",
+        "blocks.quote",
+        "blocks.faq-section",
+        "blocks.cta-banner",
+        "blocks.stats-section",
+        "blocks.related-posts",
+        "blocks.related-case-studies",
+        "blocks.download-cta",
+        "blocks.office-info"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

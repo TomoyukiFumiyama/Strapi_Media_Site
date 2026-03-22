@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_shared_cta",
+  "info": {
+    "displayName": "CTA"
+  },
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "style": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "text"
+      ],
+      "default": "primary"
+    }
+  }
+}

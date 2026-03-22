@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_blocks_image_text",
+  "info": {
+    "displayName": "image-text"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false
+    },
+    "image_position": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right"
+      ],
+      "default": "left"
+    }
+  }
+}

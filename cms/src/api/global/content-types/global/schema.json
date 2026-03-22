@@ -1,0 +1,45 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "global"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "site_name": {
+      "type": "string"
+    },
+    "default_seo": {
+      "type": "component",
+      "component": "shared.seo"
+    },
+    "header_cta": {
+      "type": "component",
+      "component": "shared.cta"
+    },
+    "footer_cta": {
+      "type": "component",
+      "component": "shared.cta"
+    },
+    "company_name": {
+      "type": "string"
+    },
+    "company_address": {
+      "type": "text"
+    },
+    "company_tel": {
+      "type": "string"
+    },
+    "og_default_image": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false
+    }
+  }
+}

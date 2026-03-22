@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_quote",
+  "info": {
+    "displayName": "quote"
+  },
+  "attributes": {
+    "quote": {
+      "type": "richtext"
+    },
+    "author_name": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "offices",
+  "info": {
+    "singularName": "office",
+    "pluralName": "offices",
+    "displayName": "office"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "address": {
+      "type": "text"
+    },
+    "tel": {
+      "type": "string"
+    },
+    "business_hours": {
+      "type": "string"
+    },
+    "map_embed_url": {
+      "type": "string"
+    },
+    "service_areas": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::area.area"
+    }
+  }
+}

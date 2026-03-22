@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_point_item",
+  "info": {
+    "displayName": "Point Item"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "text"
+    }
+  }
+}
