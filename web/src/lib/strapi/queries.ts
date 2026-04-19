@@ -1,4 +1,4 @@
-import { DETAIL_POPULATE, GLOBAL_POPULATE, LISTING_POPULATE } from "./populate";
+import { DETAIL_POPULATE_BY_API, GLOBAL_POPULATE, LISTING_POPULATE_BY_API } from "./populate";
 
 const API = {
   blog: "blog-posts",
@@ -8,12 +8,22 @@ const API = {
   global: "global",
 } as const;
 
+function resolveListingPopulate(apiName: string): string {
+  return LISTING_POPULATE_BY_API[apiName] ?? "";
+}
+
+function resolveDetailPopulate(apiName: string): string {
+  return DETAIL_POPULATE_BY_API[apiName] ?? "";
+}
+
 export function buildListQuery(apiName: string): string {
-  return `/api/${apiName}?${LISTING_POPULATE}&sort[0]=publishedAt:desc`;
+  const populate = resolveListingPopulate(apiName);
+  return `/api/${apiName}?${populate}&sort[0]=publishedAt:desc`;
 }
 
 export function buildDetailQuery(apiName: string, slug: string): string {
-  return `/api/${apiName}?filters[slug][$eq]=${encodeURIComponent(slug)}&${DETAIL_POPULATE}&pagination[pageSize]=1`;
+  const populate = resolveDetailPopulate(apiName);
+  return `/api/${apiName}?filters[slug][$eq]=${encodeURIComponent(slug)}&${populate}&pagination[pageSize]=1`;
 }
 
 export function buildBlogListQuery(): string {
@@ -41,7 +51,12 @@ export function buildResourceDetailQuery(slug: string): string {
 }
 
 export function buildLocalPageSlug(areaSlug: string, serviceSlug: string): string {
-  return `${areaSlug}-${serviceSlug}`;
+  return `${areaSlug.trim()}-${serviceSlug.trim()}`;
+}
+
+export function areValidLocalPageSlugs(areaSlug: string, serviceSlug: string): boolean {
+  const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  return slugPattern.test(areaSlug) && slugPattern.test(serviceSlug);
 }
 
 export function buildLocalPageDetailQuery(areaSlug: string, serviceSlug: string): string {

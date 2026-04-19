@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## 0.0.11 – M1〜M5の実装（運用ガイド・取得最適化・テスト拡張）
+- `.agents/CONTENT_OPERATIONS.md` を追加し、主要content-typeの入力ガイド（必須/推奨）と公開前チェックリストを明文化
+- `web/src/lib/strapi/populate.ts` / `queries.ts` を更新し、一覧/詳細ごとに取得項目をモデル単位で最適化
+- `web/src/lib/strapi/mappers.ts` / `types/page-models.ts` を拡張し、null・relation未設定時のフォールバックと local-page 情報整形を強化
+- `web/src/components/templates/local-page-template.tsx` と mock data を更新し、地域固有情報・FAQ・関連導線を表示可能に改善
+- metadata / query / mapper / revalidate-path のテストを追加し、優先順位・slug・再検証パスを固定化
+- `README.md` の Version を `0.0.11` に更新
+
+## 0.0.10 – `.agents/` への運用ドキュメント集約とデプロイ手順強化
+- `.agent/` を `.agents/` にリネームし、`PLANS.md` を移設
+- 既存の `CHANGELOG.md` を `.agents/CHANGELOG.md` へ移設
+- `.agents/ARCHITECTURE.md` を新規追加し、開発/運用の推奨アーキテクチャ詳細を記述
+- `README.md` にローカルデプロイ方法と VPS デプロイ方法を追記
+- `README.md` の Version を `0.0.10` に更新
+
+## 0.0.9 – README不要ディレクトリの整理
+- `cms/` 配下で README 以外の直接配置ファイルが存在しないディレクトリの `README.md` を削除
+- `schema.json` / component JSON を直接持つディレクトリの README のみ残す運用に整理
+- `README.md` の Version を `0.0.9` に更新
+
+## 0.0.8 – `cms/` 配下の全ディレクトリにREADMEを整備
+- `cms/` 以下の各ディレクトリに `README.md` を追加し、ディレクトリ責務を明文化
+- 各 README に配下ファイル（schema / component JSON）の役割と主要属性を記載
+- `README.md` の Version を `0.0.8` に更新
+
 ## 0.0.7 – `.env.local` 記述例ファイルを追加
 - `web/.env.local.example` を追加し、ローカル開発に必要な環境変数の雛形をファイル化
 - `README.md` を更新し、`.env.local.example` から `.env.local` を作成する手順に変更

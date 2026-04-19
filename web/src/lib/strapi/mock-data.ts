@@ -1,6 +1,6 @@
 import type { StrapiListResponse } from "@/types/strapi";
 
-type StrapiRecord = Record<string, unknown>;
+type StrapiRecord = { id: number } & Record<string, unknown>;
 
 const blogPosts: StrapiRecord[] = [
   {
@@ -84,6 +84,20 @@ const localPages: StrapiRecord[] = [
     slug: "tokyo-web-production",
     area: { slug: "tokyo" },
     service: { slug: "web-production" },
+    local_intro: "東京エリアでは短納期案件が多く、初期要件の解像度が成果に直結します。",
+    local_problem_points: [
+      { title: "意思決定が速く、要件が頻繁に変わる", body: "スプリント単位で優先順位を更新できる設計が必要です。" },
+      { title: "競合比較が激しく、CV導線の最適化が必須", body: "資料導線と事例導線をページ内で明確に分けて設計します。" }
+    ],
+    local_strengths: [
+      { title: "最短2週間で初期公開", body: "共通ブロックとテンプレート活用で実装を高速化します。" },
+      { title: "公開後の改善運用を前提化", body: "revalidate運用と計測設計を同時に導入します。" }
+    ],
+    local_faq: [
+      { question: "東京以外の拠点にも対応できますか？", answer: "はい。地域別ページを横展開可能です。" }
+    ],
+    related_case_studies: [{ slug: "local-seo-lp-case" }],
+    featured_download: { slug: "strapi-nextjs-checklist" },
     noindex: false,
     canonical_url: "http://localhost:3000/areas/tokyo/web-production",
     content_blocks: [

@@ -2,8 +2,10 @@ import type {
   BlogPostModel,
   CaseStudyModel,
   ContentSummary,
+  FaqItemModel,
   LeadMagnetModel,
   LocalPageModel,
+  PointItemModel,
   SeoModel,
 } from "@/types/page-models";
 import type { StrapiBlock } from "@/types/blocks";
@@ -25,6 +27,66 @@ function pickImageUrl(input: unknown): string | undefined {
   if (!input || typeof input !== "object") return undefined;
   const objectInput = input as { url?: string; data?: { attributes?: { url?: string } } };
   return pickText(objectInput.url) ?? pickText(objectInput.data?.attributes?.url);
+}
+
+function pickRelationAttributes(input: unknown): Record<string, unknown> {
+  if (!input || typeof input !== "object") return {};
+
+  const objectInput = input as {
+    data?: { attributes?: Record<string, unknown> | null } | null;
+    attributes?: Record<string, unknown> | null;
+    slug?: string;
+  };
+
+  return objectInput.data?.attributes ?? objectInput.attributes ?? (objectInput as Record<string, unknown>);
+}
+
+function mapPointItems(input: unknown): PointItemModel[] {
+  if (!Array.isArray(input)) return [];
+
+  const items: PointItemModel[] = [];
+
+  for (const entry of input) {
+    const item = pickRelationAttributes(entry);
+    const title = pickText(item.title);
+
+    if (!title) continue;
+
+    items.push({
+      title,
+      body: pickText(item.body),
+    });
+  }
+
+  return items;
+}
+
+function mapFaqItems(input: unknown): FaqItemModel[] {
+  if (!Array.isArray(input)) return [];
+
+  const items: FaqItemModel[] = [];
+
+  for (const entry of input) {
+    const item = pickRelationAttributes(entry);
+    const question = pickText(item.question);
+
+    if (!question) continue;
+
+    items.push({
+      question,
+      answer: pickText(item.answer),
+    });
+  }
+
+  return items;
+}
+
+function mapSlugList(input: unknown): string[] {
+  if (!Array.isArray(input)) return [];
+
+  return input
+    .map((entry) => pickText(pickRelationAttributes(entry).slug))
+    .filter((slug): slug is string => Boolean(slug));
 }
 
 export function mapSeo(input: StrapiSeo | undefined): SeoModel {
@@ -82,8 +144,9 @@ export function mapLeadMagnet(input: Record<string, unknown>): LeadMagnetModel {
 }
 
 export function mapLocalPage(input: Record<string, unknown>): LocalPageModel {
-  const area = (input.area ?? {}) as { slug?: string };
-  const service = (input.service ?? {}) as { slug?: string };
+  const area = pickRelationAttributes(input.area);
+  const service = pickRelationAttributes(input.service);
+  const featuredDownload = pickRelationAttributes(input.featured_download);
 
   return {
     title: pickText(input.title) ?? "Untitled",
@@ -92,6 +155,12 @@ export function mapLocalPage(input: Record<string, unknown>): LocalPageModel {
     serviceSlug: pickText(service.slug),
     canonicalUrl: pickText(input.canonical_url),
     noindex: pickBoolean(input.noindex),
+    localIntro: pickText(input.local_intro),
+    localProblemPoints: mapPointItems(input.local_problem_points),
+    localStrengths: mapPointItems(input.local_strengths),
+    localFaq: mapFaqItems(input.local_faq),
+    relatedCaseStudySlugs: mapSlugList(input.related_case_studies),
+    featuredDownloadSlug: pickText(featuredDownload.slug),
     blocks: pickBlocks(input.content_blocks),
     seo: mapSeo((input.seo ?? {}) as StrapiSeo),
   };

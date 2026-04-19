@@ -3,9 +3,15 @@ import { notFound } from "next/navigation";
 import { LocalPageTemplate } from "@/components/templates/local-page-template";
 import { fetchLocalPageBySlugs } from "@/features/local-pages";
 import { resolvePageMetadata } from "@/lib/strapi/metadata";
+import { areValidLocalPageSlugs } from "@/lib/strapi/queries";
 
 export async function generateMetadata({ params }: { params: Promise<{ areaSlug: string; serviceSlug: string }> }): Promise<Metadata> {
   const { areaSlug, serviceSlug } = await params;
+
+  if (!areValidLocalPageSlugs(areaSlug, serviceSlug)) {
+    return resolvePageMetadata({ fallbackTitle: "Local Page" });
+  }
+
   const localPage = await fetchLocalPageBySlugs(areaSlug, serviceSlug);
 
   if (!localPage) {
@@ -25,12 +31,16 @@ export async function generateMetadata({ params }: { params: Promise<{ areaSlug:
 
 export default async function LocalPage({ params }: { params: Promise<{ areaSlug: string; serviceSlug: string }> }) {
   const { areaSlug, serviceSlug } = await params;
+
+  if (!areValidLocalPageSlugs(areaSlug, serviceSlug)) {
+    notFound();
+  }
+
   const localPage = await fetchLocalPageBySlugs(areaSlug, serviceSlug);
 
   if (!localPage) {
     notFound();
   }
 
-  const resolvedLocalPage = localPage;
-  return <LocalPageTemplate localPage={resolvedLocalPage} />;
+  return <LocalPageTemplate localPage={localPage} />;
 }
