@@ -16,6 +16,16 @@ export type ContentSummary = {
   isFeatured: boolean;
 };
 
+export type PointItemModel = {
+  title: string;
+  body?: string;
+};
+
+export type FaqItemModel = {
+  question: string;
+  answer?: string;
+};
+
 export type BlogPostModel = {
   title: string;
   slug: string;
@@ -49,6 +59,12 @@ export type LocalPageModel = {
   serviceSlug?: string;
   canonicalUrl?: string;
   noindex: boolean;
+  localIntro?: string;
+  localProblemPoints: PointItemModel[];
+  localStrengths: PointItemModel[];
+  localFaq: FaqItemModel[];
+  relatedCaseStudySlugs: string[];
+  featuredDownloadSlug?: string;
   blocks: StrapiBlock[];
   seo: SeoModel;
 };

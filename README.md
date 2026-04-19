@@ -1,12 +1,15 @@
 # Strapi Media Site Scaffold
 
-Version: 0.0.7
+Version: 0.0.11
 
 Strapi 5 + Next.js App Router を用いたメディアサイトのひな形です。
 
 - CMS: `cms/`
 - Frontend: `web/`
-- Plan source: `.agent/PLANS.md`
+- Plan source: `.agents/PLANS.md`
+- Changelog: `.agents/CHANGELOG.md`
+- Architecture: `.agents/ARCHITECTURE.md`
+- Content operations: `.agents/CONTENT_OPERATIONS.md`
 
 ## ローカル起動（Node.js）
 
@@ -50,25 +53,40 @@ TypeScript は `next build` 実行時に型チェック/ビルドされます。
 
 この Docker 構成では `STRAPI_USE_MOCK=true` を設定済みのため、まずは最小構成のサイトを確認できます。
 
-## CI/CD（VPS向け）
+## ローカルデプロイ方法（本番相当）
 
-GitHub Actions Workflow: `.github/workflows/web-ci-cd.yml`
+### Dockerを使う場合（推奨）
+1. リポジトリルートで `docker compose build`
+2. `docker compose up -d`
+3. `docker compose ps` でコンテナ稼働を確認
+4. `http://localhost:3000` でアプリ確認
 
-### CI
-- `web` で `npm install`
-- `npm run typecheck`
-- `npm run build`
+### Node.jsを使う場合（Webのみ）
+1. `cd web`
+2. `npm ci`
+3. `cp .env.local.example .env.production.local`
+4. `npm run build`
+5. `npm run start`
 
-### CD（`main` push時）
-`main` への push 時に、以下の GitHub Secrets を使って VPS へデプロイします。
+## VPS上のデプロイ方法
 
-- `VPS_HOST`
-- `VPS_USER`
-- `VPS_SSH_KEY`
-- `VPS_PORT`（任意。未設定時は `22`）
-- `VPS_DEPLOY_PATH`（例: `/var/www/strapi-media-site`）
+### GitHub Actions経由でデプロイ（推奨）
+対象Workflow: `.github/workflows/web-ci-cd.yml`
 
-Workflow は VPS 上にソースを同期し、`docker compose up -d --build` を実行します。
+1. GitHub Secrets に以下を設定
+   - `VPS_HOST`
+   - `VPS_USER`
+   - `VPS_SSH_KEY`
+   - `VPS_PORT`（任意。未設定時は `22`）
+   - `VPS_DEPLOY_PATH`（例: `/var/www/strapi-media-site`）
+2. `main` ブランチへ push
+3. Workflow が VPS へソース同期し、`docker compose up -d --build` を実行
+
+### 手動デプロイ（SSH）
+1. VPSにSSH接続して `VPS_DEPLOY_PATH` へ移動
+2. 最新コードを配置（`git pull` など）
+3. `docker compose up -d --build` を実行
+4. `docker compose ps` と `docker compose logs -f` で確認
 
 ## サンプル確認ルート
 
