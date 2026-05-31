@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "column_articles",
+  "info": {
+    "singularName": "column-article",
+    "pluralName": "column-articles",
+    "displayName": "column-article"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "excerpt": {
+      "type": "text"
+    },
+    "cover_image": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "multiple": false
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::column-category.column-category"
+    },
+    "areas": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::area.area"
+    },
+    "job_search_conditions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job-search-condition.job-search-condition"
+    },
+    "related_jobs": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job-posting.job-posting"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author"
+    },
+    "content_blocks": {
+      "type": "dynamiczone",
+      "components": [
+        "blocks.rich-text",
+        "blocks.image-text",
+        "blocks.quote",
+        "blocks.faq-section",
+        "blocks.cta-banner",
+        "blocks.stats-section",
+        "blocks.related-posts",
+        "blocks.related-case-studies",
+        "blocks.download-cta",
+        "blocks.office-info",
+        "blocks.column-section"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo"
+    },
+    "reading_time_label": {
+      "type": "string"
+    },
+    "published_at_label": {
+      "type": "string"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

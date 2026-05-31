@@ -1,7 +1,7 @@
 # CONTENT_OPERATIONS.md
 
 ## 目的
-主要コンテンツタイプ（blog-post / case-study / local-page / lead-magnet）における入力ルール（必須/推奨）と公開前チェックを標準化し、品質のばらつきを防ぐ。
+主要コンテンツタイプ（blog-post / case-study / local-page / lead-magnet / job-posting / job-listing-page / column-article）における入力ルール（必須/推奨）と公開前チェックを標準化し、品質のばらつきを防ぐ。
 
 ## 1) blog-post 入力ガイド
 ### 必須
@@ -55,6 +55,51 @@
 - `thank_you_heading`, `thank_you_body`, `thank_you_cta`
 - `related_posts`, `related_case_studies`, `related_services`
 
+## 5) job-posting 入力ガイド
+### 必須
+- `title`, `slug`
+- `area` または勤務地が分かる `work_location`
+- `employment_type`
+- `summary` または `description`
+- `is_accepting_applications` の公開状態に合った設定
+- `seo.meta_title`, `seo.meta_description`
+
+### 推奨
+- `job_code`
+- `service`
+- `job_search_conditions`
+- `salary_min`, `salary_max`, `salary_label`
+- `requirements`, `benefits`, `application_flow`
+- `featured_columns`
+
+## 6) job-listing-page 入力ガイド
+### 必須
+- `title`, `slug`, `page_type`
+- `page_type` が `area` / `area-condition` の場合は `area`
+- `page_type` が `condition` / `area-condition` の場合は `job_search_condition`
+- `lead_text` または `job_list_intro`
+- `seo.meta_title`, `seo.meta_description`
+
+### 推奨
+- `featured_jobs`
+- `featured_columns`
+- `column_section_heading`, `column_section_body`
+- `content_blocks` に `blocks.column-section` を追加
+- `canonical_url` / `noindex` の明示設定
+
+## 7) column-article 入力ガイド
+### 必須
+- `title`, `slug`, `excerpt`
+- `category`
+- `content_blocks`
+- `seo.meta_title`, `seo.meta_description`
+
+### 推奨
+- `areas`
+- `job_search_conditions`
+- `related_jobs`
+- `author`, `cover_image`, `reading_time_label`
+
 ---
 
 ## 公開前チェックリスト（運用手順）
@@ -65,8 +110,8 @@
 - [ ] noindex の意図が明確（テスト環境/重複ページのみ）
 
 ### Relation
-- [ ] 必須 relation（area/service 等）が設定済み
-- [ ] blog / case-study / lead-magnet の回遊 relation が最低1本ある
+- [ ] 必須 relation（area/service/job_search_condition 等）が設定済み
+- [ ] blog / case-study / lead-magnet / job-posting / column-article の回遊 relation が最低1本ある
 
 ### 画像
 - [ ] cover 画像が適切な比率・容量

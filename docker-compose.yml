@@ -1,13 +1,42 @@
 services:
+  cms:
+    build:
+      context: ./cms
+    ports:
+      - "1337:1337"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "1337"
+      APP_KEYS: "${APP_KEYS:-dev-app-key-1,dev-app-key-2,dev-app-key-3,dev-app-key-4}"
+      API_TOKEN_SALT: "${API_TOKEN_SALT:-dev-api-token-salt}"
+      ADMIN_JWT_SECRET: "${ADMIN_JWT_SECRET:-dev-admin-jwt-secret}"
+      TRANSFER_TOKEN_SALT: "${TRANSFER_TOKEN_SALT:-dev-transfer-token-salt}"
+      JWT_SECRET: "${JWT_SECRET:-dev-jwt-secret}"
+      DATABASE_CLIENT: "sqlite"
+      DATABASE_FILENAME: ".tmp/data.db"
+    volumes:
+      - ./cms:/opt/app
+      - /opt/app/node_modules
+      - cms_data:/opt/app/.tmp
+      - cms_uploads:/opt/app/public/uploads
+
   web:
     build:
       context: ./web
+    depends_on:
+      - cms
     ports:
       - "3000:3000"
     environment:
-      STRAPI_USE_MOCK: "true"
+      STRAPI_URL: "http://cms:1337"
+      STRAPI_API_TOKEN: "${STRAPI_API_TOKEN:-}"
+      STRAPI_USE_MOCK: "${STRAPI_USE_MOCK:-false}"
       NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
-      REVALIDATE_SECRET: "dev-secret"
+      REVALIDATE_SECRET: "${REVALIDATE_SECRET:-dev-secret}"
     volumes:
       - ./web:/app
       - /app/node_modules
+
+volumes:
+  cms_data:
+  cms_uploads:
