@@ -56,6 +56,9 @@
 - `case-study`
 - `local-page`
 - `lead-magnet`
+- `job-posting`
+- `job-listing-page`
+- `column-article`
 
 ### 3-2. 補助マスタ
 - `service`
@@ -64,6 +67,8 @@
 - `blog-category`
 - `tag`
 - `office`
+- `job-search-condition`
+- `column-category`
 
 ### 3-3. 設計原則
 - 表示都合でデータを重複保持しない（relation 優先）

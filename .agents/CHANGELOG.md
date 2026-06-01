@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 0.0.13 – 求人・コラム向けcontent-type追加
+- `job-posting` を追加し、大量の求人情報を地域・サービス・検索条件と紐づけて管理できるようにした
+- `job-search-condition` を追加し、よく検索される条件を補助マスタ化
+- `job-listing-page` を追加し、地域別・条件別の求人一覧ページに求人とコラムセクションを個別設定できる構造を追加
+- `column-article` / `column-category` と `blocks.column-section` を追加し、求人ページ向けのコラム記事運用を可能にした
+- Strapi factory / config のコメントを日本語化し、拡張箇所と責務を分かりやすくした
+- `.agents/ARCHITECTURE.md` / `.agents/CONTENT_OPERATIONS.md` に求人・コラム運用の対象content-typeを追記
+- `README.md` の Version を `0.0.13` に更新
+
+## 0.0.12 – Strapi Docker実行環境の追加
+- `cms/package.json` を追加し、`@strapi/strapi` / 主要Strapi plugin を `^5.0.0` で取得するCMS実行プロジェクト化
+- `cms/Dockerfile` / `cms/.dockerignore` / `cms/.env.example` と Strapi `config/*` を追加し、Docker上でStrapiを起動可能にした
+- 既存content-typeごとに Strapi REST API 用 controller / route / service を追加
+- `docker-compose.yml` を更新し、`cms` と `web` の両方を起動して `web` から `http://cms:1337` を参照する構成へ変更
+- `README.md` に CMS / Web の起動手順、Docker構成、API token 初期設定を追記
+- `README.md` の Version を `0.0.12` に更新
+
 ## 0.0.11 – M1〜M5の実装（運用ガイド・取得最適化・テスト拡張）
 - `.agents/CONTENT_OPERATIONS.md` を追加し、主要content-typeの入力ガイド（必須/推奨）と公開前チェックリストを明文化
 - `web/src/lib/strapi/populate.ts` / `queries.ts` を更新し、一覧/詳細ごとに取得項目をモデル単位で最適化

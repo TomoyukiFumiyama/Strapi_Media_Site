@@ -1,0 +1,126 @@
+{
+  "kind": "collectionType",
+  "collectionName": "job_postings",
+  "info": {
+    "singularName": "job-posting",
+    "pluralName": "job-postings",
+    "displayName": "job-posting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "job_code": {
+      "type": "string",
+      "unique": true
+    },
+    "summary": {
+      "type": "text"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "hero": {
+      "type": "component",
+      "component": "shared.hero"
+    },
+    "area": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::area.area"
+    },
+    "service": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::service.service"
+    },
+    "job_search_conditions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job-search-condition.job-search-condition"
+    },
+    "employment_type": {
+      "type": "enumeration",
+      "enum": [
+        "full-time",
+        "contract",
+        "part-time",
+        "temporary",
+        "outsourcing",
+        "internship"
+      ],
+      "default": "full-time",
+      "required": true
+    },
+    "work_style": {
+      "type": "enumeration",
+      "enum": [
+        "onsite",
+        "remote",
+        "hybrid"
+      ],
+      "default": "onsite"
+    },
+    "salary_min": {
+      "type": "integer"
+    },
+    "salary_max": {
+      "type": "integer"
+    },
+    "salary_label": {
+      "type": "string"
+    },
+    "work_location": {
+      "type": "text"
+    },
+    "nearest_station": {
+      "type": "string"
+    },
+    "working_hours": {
+      "type": "text"
+    },
+    "holidays": {
+      "type": "text"
+    },
+    "requirements": {
+      "type": "richtext"
+    },
+    "welcome_skills": {
+      "type": "richtext"
+    },
+    "benefits": {
+      "type": "richtext"
+    },
+    "application_flow": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.point-item"
+    },
+    "featured_columns": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::column-article.column-article"
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo"
+    },
+    "is_featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_accepting_applications": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

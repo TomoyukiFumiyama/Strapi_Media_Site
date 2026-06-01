@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_blocks_column_section",
+  "info": {
+    "displayName": "column-section"
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "text"
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "related_columns": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::column-article.column-article"
+    },
+    "cta": {
+      "type": "component",
+      "component": "shared.cta"
+    }
+  }
+}

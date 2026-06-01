@@ -4,6 +4,7 @@
 Dynamic Zone でページ本文を構成する block component 定義です。
 
 ## 配下ファイルと役割
+- `column-section.json`: `column-section` component 定義。求人一覧ページや求人詳細ページに差し込む短いコラム枠を規定し、主な属性は heading, intro, body, related_columns, cta です。
 - `cta-banner.json`: `cta-banner` component 定義。入力 UI と JSON 構造を規定し、主な属性は heading, body, cta です。
 - `download-cta.json`: `download-cta` component 定義。入力 UI と JSON 構造を規定し、主な属性は heading, body, lead_magnet です。
 - `faq-section.json`: `faq-section` component 定義。入力 UI と JSON 構造を規定し、主な属性は heading, items です。

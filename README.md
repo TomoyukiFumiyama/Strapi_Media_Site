@@ -1,17 +1,39 @@
 # Strapi Media Site Scaffold
 
-Version: 0.0.11
+Version: 0.0.13
 
 Strapi 5 + Next.js App Router を用いたメディアサイトのひな形です。
 
-- CMS: `cms/`
-- Frontend: `web/`
+Strapi は公式の汎用 Docker イメージではなく、プロジェクト内の `cms/Dockerfile` からビルドします。`cms/package.json` では `@strapi/strapi` を `^5.0.0` にしているため、Docker build 時点で取得可能な最新の Strapi 5 系をインストールします。
+
+- CMS: `cms/`（Strapi 実行プロジェクト、content-type / component / API 定義）
+- Frontend: `web/`（Next.js App Router）
 - Plan source: `.agents/PLANS.md`
 - Changelog: `.agents/CHANGELOG.md`
 - Architecture: `.agents/ARCHITECTURE.md`
 - Content operations: `.agents/CONTENT_OPERATIONS.md`
 
+## 主要 content-type
+
+既存のブログ/導入事例/地域差分/資料ダウンロードに加え、求人メディア運用向けに以下を用意しています。
+
+- `job-posting`: 大量の求人情報を登録する主役 content-type
+- `job-search-condition`: よく検索される条件（雇用形態、働き方、給与、福利厚生など）の補助マスタ
+- `job-listing-page`: 地域別・条件別・地域×条件別の求人一覧ページを個別にカスタマイズする content-type
+- `column-article`: 求人一覧や求人詳細に差し込むコラム記事
+- `column-category`: コラム記事の分類マスタ
+
+`job-listing-page` は `area` / `job_search_condition` / `featured_jobs` / `featured_columns` / `content_blocks` を持つため、地域別ページやよく検索される条件別ページごとに、求人一覧と短いコラムセクションを組み合わせて編集できます。
+
 ## ローカル起動（Node.js）
+
+### CMS
+1. `cd cms`
+2. `npm install`
+3. `cp .env.example .env` を実行
+4. `.env` の secret 値を必要に応じて変更
+5. `npm run develop`
+6. `http://localhost:1337/admin` で管理者ユーザーを作成
 
 ### Web
 1. `cd web`
@@ -27,10 +49,20 @@ STRAPI_URL=http://localhost:1337
 STRAPI_API_TOKEN=your-token
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 REVALIDATE_SECRET=your-secret
-STRAPI_USE_MOCK=true
+STRAPI_USE_MOCK=false
 ```
 
-`STRAPI_USE_MOCK=true` の場合、Strapi未起動でもモックデータで最低限の画面確認ができます。
+`STRAPI_USE_MOCK=false` の場合、Next.js は実際の Strapi REST API を参照します。Strapi未起動でフロントだけ確認したい場合のみ `STRAPI_USE_MOCK=true` に変更してください。
+
+### Strapi API 接続の初期設定
+Docker / Node.js どちらで起動した場合も、初回は Strapi 管理画面で以下を設定してください。
+
+1. `http://localhost:1337/admin` で管理者ユーザーを作成
+2. Content Manager で必要なコンテンツを作成・公開
+3. Settings → API Tokens で Read-only token を作成
+4. `web/.env.local` の `STRAPI_API_TOKEN` に token を設定
+
+公開権限を使う場合は、Settings → Users & Permissions plugin → Roles → Public で必要な find / findOne 権限を明示的に許可してください。
 
 ## TypeScriptのコンパイル方法（ビルド）
 
@@ -51,7 +83,7 @@ TypeScript は `next build` 実行時に型チェック/ビルドされます。
 3. ブラウザで `http://localhost:3000` を開く
 4. 停止するときは `docker compose down`
 
-この Docker 構成では `STRAPI_USE_MOCK=true` を設定済みのため、まずは最小構成のサイトを確認できます。
+この Docker 構成では `cms` と `web` の両方を起動し、`web` コンテナは `STRAPI_URL=http://cms:1337` で Strapi REST API に接続します。初回起動後は `http://localhost:1337/admin` で管理者ユーザーを作成してください。
 
 ## ローカルデプロイ方法（本番相当）
 
@@ -61,7 +93,19 @@ TypeScript は `next build` 実行時に型チェック/ビルドされます。
 3. `docker compose ps` でコンテナ稼働を確認
 4. `http://localhost:3000` でアプリ確認
 
-### Node.jsを使う場合（Webのみ）
+### Node.jsを使う場合（CMS + Web）
+1. `cd cms`
+2. `npm ci`
+3. `cp .env.example .env`
+4. `npm run build`
+5. `npm run start`
+6. 別ターミナルで `cd web`
+7. `npm ci`
+8. `cp .env.local.example .env.production.local`
+9. `npm run build`
+10. `npm run start`
+
+### Node.jsを使う場合（Webのみ・外部Strapi接続）
 1. `cd web`
 2. `npm ci`
 3. `cp .env.local.example .env.production.local`
