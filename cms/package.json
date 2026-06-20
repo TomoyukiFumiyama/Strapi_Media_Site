@@ -1,6 +1,6 @@
 {
   "name": "strapi-media-site-cms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Strapi CMS backend for the media site.",
   "scripts": {
@@ -13,6 +13,7 @@
   "dependencies": {
     "@strapi/plugin-upload": "^5.0.0",
     "@strapi/plugin-users-permissions": "^5.0.0",
+    "@strapi/provider-upload-aws-s3": "^5.0.0",
     "@strapi/strapi": "^5.0.0",
     "better-sqlite3": "^11.0.0",
     "react": "^18.0.0",

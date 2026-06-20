@@ -14,11 +14,16 @@ services:
       JWT_SECRET: "${JWT_SECRET:-dev-jwt-secret}"
       DATABASE_CLIENT: "sqlite"
       DATABASE_FILENAME: ".tmp/data.db"
+      CLOUDFLARE_R2_ACCESS_KEY_ID: "${CLOUDFLARE_R2_ACCESS_KEY_ID:-}"
+      CLOUDFLARE_R2_SECRET_ACCESS_KEY: "${CLOUDFLARE_R2_SECRET_ACCESS_KEY:-}"
+      CLOUDFLARE_R2_ENDPOINT: "${CLOUDFLARE_R2_ENDPOINT:-}"
+      CLOUDFLARE_R2_BUCKET: "${CLOUDFLARE_R2_BUCKET:-}"
+      CLOUDFLARE_R2_PUBLIC_URL: "${CLOUDFLARE_R2_PUBLIC_URL:-}"
+      CLOUDFLARE_R2_REGION: "${CLOUDFLARE_R2_REGION:-auto}"
     volumes:
       - ./cms:/opt/app
       - /opt/app/node_modules
       - cms_data:/opt/app/.tmp
-      - cms_uploads:/opt/app/public/uploads
 
   web:
     build:
@@ -39,4 +44,3 @@ services:
 
 volumes:
   cms_data:
-  cms_uploads:

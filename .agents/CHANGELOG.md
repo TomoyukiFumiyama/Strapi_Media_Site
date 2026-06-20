@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.0.14 – プロンプトログ運用とCloudflare R2アップロード構成
+- `.agents/PROMPTS.md` を追加し、ユーザー指示プロンプトのログ運用を開始
+- `AGENTS.md` にプロンプトログ追記ルールを追加
+- Strapi Upload plugin をCloudflare R2（S3互換）へ接続する設定に変更
+- `cms/package.json` に `@strapi/provider-upload-aws-s3` を追加し、CMS version を `0.0.2` に更新
+- `cms/.env.example` / `docker-compose.yml` に `CLOUDFLARE_R2_*` 環境変数（公開URL含む）を追加し、ローカルアップロード永続ボリューム依存を削除
+- `README.md` にプロンプトログ運用とR2アップロード設定手順を追記し、Version を `0.0.14` に更新
+
 ## 0.0.13 – 求人・コラム向けcontent-type追加
 - `job-posting` を追加し、大量の求人情報を地域・サービス・検索条件と紐づけて管理できるようにした
 - `job-search-condition` を追加し、よく検索される条件を補助マスタ化
