@@ -1,6 +1,6 @@
 # Strapi Media Site Scaffold
 
-Version: 0.0.13
+Version: 0.0.14
 
 Strapi 5 + Next.js App Router を用いたメディアサイトのひな形です。
 
@@ -12,6 +12,29 @@ Strapi は公式の汎用 Docker イメージではなく、プロジェクト�
 - Changelog: `.agents/CHANGELOG.md`
 - Architecture: `.agents/ARCHITECTURE.md`
 - Content operations: `.agents/CONTENT_OPERATIONS.md`
+- Prompt log: `.agents/PROMPTS.md`
+
+
+## プロンプトログ運用
+
+今後このリポジトリで受けた作業指示プロンプトは、作業開始時または完了時に `.agents/PROMPTS.md` へ追記します。記録時は日時、依頼概要、原文を残し、完了履歴そのものは従来通り `.agents/CHANGELOG.md` に集約します。
+
+## Strapiメディアアップロード（Cloudflare R2）
+
+このStrapiアプリはVPS上でCMS本体を動かし、管理画面からアップロードされた画像・ファイルのみをCloudflare R2へ保存する構成です。ローカル永続ボリューム `public/uploads` には依存しません。
+
+CMSでは Strapi Upload plugin のS3互換providerを利用し、Cloudflare R2の接続情報を環境変数から読み込みます。VPS / Docker / Node.js いずれの起動方式でも、以下を設定してください。
+
+```env
+CLOUDFLARE_R2_ACCESS_KEY_ID=your-r2-access-key-id
+CLOUDFLARE_R2_SECRET_ACCESS_KEY=your-r2-secret-access-key
+CLOUDFLARE_R2_ENDPOINT=https://your-account-id.r2.cloudflarestorage.com
+CLOUDFLARE_R2_BUCKET=your-bucket-name
+CLOUDFLARE_R2_PUBLIC_URL=your-public-r2-or-custom-domain-url
+CLOUDFLARE_R2_REGION=auto
+```
+
+Cloudflare R2側では、Strapi専用bucketとR2 API tokenを作成し、必要最小限のbucket権限だけを付与してください。`CLOUDFLARE_R2_PUBLIC_URL` にはR2の公開配信URLまたは独自ドメインを設定します。公開配信URLや独自ドメインを利用する場合は、R2 bucketの公開設定・CORS・キャッシュ方針を別途Cloudflare側で管理します。
 
 ## 主要 content-type
 
@@ -83,7 +106,7 @@ TypeScript は `next build` 実行時に型チェック/ビルドされます。
 3. ブラウザで `http://localhost:3000` を開く
 4. 停止するときは `docker compose down`
 
-この Docker 構成では `cms` と `web` の両方を起動し、`web` コンテナは `STRAPI_URL=http://cms:1337` で Strapi REST API に接続します。初回起動後は `http://localhost:1337/admin` で管理者ユーザーを作成してください。
+この Docker 構成では `cms` と `web` の両方を起動し、`web` コンテナは `STRAPI_URL=http://cms:1337` で Strapi REST API に接続します。CMSのアップロードファイルはCloudflare R2へ保存するため、`CLOUDFLARE_R2_*` 環境変数を設定してください。初回起動後は `http://localhost:1337/admin` で管理者ユーザーを作成してください。
 
 ## ローカルデプロイ方法（本番相当）
 
